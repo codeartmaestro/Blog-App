@@ -2,7 +2,7 @@
 
 This is a simple blog application to practice creating **RESTful routes**.
 
-- [ ] Index
+- [x] Index
 - [ ] New 
 - [ ] Create
 - [ ] Show
