@@ -3,3 +3,7 @@ i.icon {
     margin-right: 1rem !important;
     font-weight: lighter;
 }
+
+.container.main {
+    margin-top: 7em !important;
+}
