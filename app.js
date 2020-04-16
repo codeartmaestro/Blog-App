@@ -1,4 +1,5 @@
-var bodyParser = require("body-parser"),
+var methodOverride = require("method-override"),
+    bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
     express = require("express"),
     app = express();
@@ -8,6 +9,7 @@ mongoose.connect("mongodb://localhost/blog_app", { useNewUrlParser: true });
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 var blogSchema = new mongoose.Schema({
     title: String,
@@ -17,12 +19,6 @@ var blogSchema = new mongoose.Schema({
 });
 
 var Blog = mongoose.model("Blog", blogSchema);
-
-// Blog.create({
-//     title: "Online Picture Test",
-//     image: "http://source.unsplash.com/800x400/?canada",
-//     body: "Online Image Test!!!"
-// });
 
 app.get("/", function (req, res) {
     res.redirect("/blogs");
@@ -54,12 +50,52 @@ app.post("/blogs", function (req, res) {
             // redirect to index
             res.redirect("/blogs");
         }
-    })
-})
+    });
+});
 
+// SHOW Route
+app.get("/blogs/:id", function (req, res) {
+    Blog.findById(req.params.id, function (err, foundBlog) {
+        if (err) {
+            res.redirect("/blogs");
+        } else {
+            res.render("show", {blog: foundBlog});
+        }
+    });
+});
 
+// EDIT Route
+app.get("/blogs/:id/edit", function (req, res) {
+    Blog.findById(req.params.id, function (err, foundBlog) {
+        if (err) {
+            res.redirect("/blogs");
+        } else {
+            res.render("edit", {blog: foundBlog});
+        }
+    });
+});
 
+// UPDATE Route
+app.put("/blogs/:id", function (req, res) {
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function (err, updatedBlog) {
+        if (err) {
+            res.redirect("/blogs/" + req.params.id + "edit");
+        } else {
+            res.redirect("/blogs/" + req.params.id);
+       }
+    });
+});
 
+// DESTROY Route
+app.delete("/blogs/:id", function (req, res) {
+    Blog.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect("/blogs/" + req.params.id);
+        } else {
+            res.redirect("/blogs");
+        }
+    });
+});
 
 app.listen(3000, function () {
     console.log("Blog server has started");

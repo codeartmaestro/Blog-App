@@ -7,3 +7,7 @@ i.icon {
 .container.main {
     margin-top: 7em !important;
 }
+
+#form-delete {
+    display: inline;
+}
