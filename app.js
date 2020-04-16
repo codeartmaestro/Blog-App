@@ -18,6 +18,12 @@ var blogSchema = new mongoose.Schema({
 
 var Blog = mongoose.model("Blog", blogSchema);
 
+// Blog.create({
+//     title: "Online Picture Test",
+//     image: "http://source.unsplash.com/800x400/?canada",
+//     body: "Online Image Test!!!"
+// });
+
 app.get("/", function (req, res) {
     res.redirect("/blogs");
 })
