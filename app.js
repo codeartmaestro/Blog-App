@@ -41,7 +41,6 @@ app.get("/blogs", function (req, res) {
       if (err) {
          console.log(err);
       } else {
-<<<<<<< HEAD
          res.render("index", { blogs: blogs });
       }
    });
@@ -54,11 +53,8 @@ app.get("/blogs/new", function (req, res) {
 
 // CREATE Route
 app.post("/blogs", function (req, res) {
-<<<<<<< HEAD
-=======
    // blog.body is because of the name of text area in form which is blog[body]
    req.body.blog.body = req.sanitize(req.body.blog.body);
->>>>>>> 620e01ef79a50b71b83639f7c8ffcccebf4b86f1
    // create blog
    Blog.create(req.body.blog, function (err, newBlog) {
       if (err) {
@@ -76,13 +72,7 @@ app.get("/blogs/:id", function (req, res) {
       if (err) {
          res.redirect("/blogs");
       } else {
-<<<<<<< HEAD
          res.render("show", { blog: foundBlog });
-=======
-         res.render("show", {
-            blog: foundBlog,
-         });
->>>>>>> 620e01ef79a50b71b83639f7c8ffcccebf4b86f1
       }
    });
 });
@@ -93,24 +83,15 @@ app.get("/blogs/:id/edit", function (req, res) {
       if (err) {
          res.redirect("/blogs");
       } else {
-<<<<<<< HEAD
          res.render("edit", { blog: foundBlog });
-=======
-         res.render("edit", {
-            blog: foundBlog,
-         });
->>>>>>> 620e01ef79a50b71b83639f7c8ffcccebf4b86f1
       }
    });
 });
 
 // UPDATE Route
 app.put("/blogs/:id", function (req, res) {
-<<<<<<< HEAD
-=======
    // blog.body is because of the name of text area in form which is blog[body]
    req.body.blog.body = req.sanitize(req.body.blog.body);
->>>>>>> 620e01ef79a50b71b83639f7c8ffcccebf4b86f1
    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function (
       err,
       updatedBlog
